@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        self.addToDatabase()
+        //self.addToDatabase()
 //Check if user is loged in and redirect if not logged in
         if Auth.auth().currentUser != nil{}else{
             logRegisterPage()
