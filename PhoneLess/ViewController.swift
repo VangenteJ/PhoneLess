@@ -12,7 +12,11 @@ import FirebaseDatabase
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var lblTime_Spent: UILabel!
+    @IBOutlet weak var lblSteps_Taken: UILabel!
+    @IBOutlet weak var lblLevel: UILabel!
     var ref:DatabaseReference!
+    var handle:DatabaseHandle?
     
     var day1 = 1
 
@@ -21,9 +25,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        //self.addToDatabase()
+        
 //Check if user is loged in and redirect if not logged in
-        if Auth.auth().currentUser != nil{}else{
+        if Auth.auth().currentUser != nil{
+            self.addToDatabase()
+            self.addFrom_Database_To_Main_Menu()
+            print("yoooo")
+        }else{
             logRegisterPage()
         }
     }
@@ -48,9 +56,33 @@ class ViewController: UIViewController {
         let timeS = String("TimeDay: \(day1)")
         let email = Auth.auth().currentUser
         let user = ref.child("Users")
-        user.child((email?.uid)!).child(day).setValue("Cooloooooooo")
-        user.child((email?.uid)!).child(timeS).setValue("10 Minuuuuutas")
+    user.child((email?.uid)!).child(day).setValue("5540")
+        user.child((email?.uid)!).child(timeS).setValue("200")
+    }
+    
+    func addFrom_Database_To_Main_Menu(){
+        let day = String("StepsDay: \(day1)")
+        let timeS = String("TimeDay: \(day1)")
+        let email = Auth.auth().currentUser
+        let user = ref.child("Users")
+        var value = ""
+        var timeSP = ""
+        handle = user.child((email?.uid)!).child(day).observe(.value, with: { (snapshot) in
+            print(snapshot)
+            value = snapshot.value as! String
+            if value != ""{
+                self.lblSteps_Taken.text = "\(value) Steps"
+            }
+            print(value)
+            
+        })
         
+        handle = user.child((email?.uid)!).child(timeS).observe(.value, with: { (snapshot) in
+            timeSP = snapshot.value as! String
+            if timeSP != ""{
+                self.lblTime_Spent.text = "\(timeSP) Minutes"
+            }
+        })
     }
 }
 
