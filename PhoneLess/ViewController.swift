@@ -9,6 +9,17 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
+
+var day1 = 1
+var steps_taken:String?
+var current_level:String?
+let day = String("StepsDay: \(day1)")
+let timeS = String("TimeDay: \(day1)")
+let email = Auth.auth().currentUser
+var user:DatabaseReference!
+
+
 
 class ViewController: UIViewController {
     
@@ -18,22 +29,16 @@ class ViewController: UIViewController {
     var ref:DatabaseReference!
     var handle:DatabaseHandle?
     
-    var day1 = 1
 
 //Add database reference
 //Add info into database
     override func viewDidLoad() {
         super.viewDidLoad()
+        //ViewControllerSTaken().update_Steps()
         ref = Database.database().reference()
+        isUser_logged()
+        display_Step_Level_Time_spent()
         
-//Check if user is loged in and redirect if not logged in
-        if Auth.auth().currentUser != nil{
-            self.addToDatabase()
-            self.addFrom_Database_To_Main_Menu()
-            print("yoooo")
-        }else{
-            logRegisterPage()
-        }
     }
     
     //Log the user out of the app.
@@ -50,21 +55,7 @@ class ViewController: UIViewController {
         self.present(backLReg, animated: true, completion: nil)
     }
     
-    //Structure information to be stored into database.
-    func addToDatabase(){
-        let day = String("StepsDay: \(day1)")
-        let timeS = String("TimeDay: \(day1)")
-        let email = Auth.auth().currentUser
-        let user = ref.child("Users")
-    user.child((email?.uid)!).child(day).setValue("5540")
-        user.child((email?.uid)!).child(timeS).setValue("200")
-    }
-    
     func addFrom_Database_To_Main_Menu(){
-        let day = String("StepsDay: \(day1)")
-        let timeS = String("TimeDay: \(day1)")
-        let email = Auth.auth().currentUser
-        let user = ref.child("Users")
         var value = ""
         var timeSP = ""
         handle = user.child((email?.uid)!).child(day).observe(.value, with: { (snapshot) in
@@ -83,6 +74,27 @@ class ViewController: UIViewController {
                 self.lblTime_Spent.text = "\(timeSP) Minutes"
             }
         })
+    }
+    
+    func display_Step_Level_Time_spent(){
+        if steps_taken != nil{
+            self.lblSteps_Taken.text = steps_taken
+        }
+        if current_level != nil{
+            self.lblLevel.text = current_level
+        }
+        if time_spent != nil{
+            self.lblTime_Spent.text = time_spent
+        }
+    }
+    
+    func isUser_logged(){
+        //Check if user is loged in and redirect if not logged in
+        if Auth.auth().currentUser != nil{
+            
+        }else{
+            logRegisterPage()
+        }
     }
 }
 

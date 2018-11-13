@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
+
+
 class ViewControllerLogReg: UIViewController {
 
     @IBOutlet weak var flipSignReg: UISegmentedControl!
@@ -19,6 +22,8 @@ class ViewControllerLogReg: UIViewController {
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblReenterPassword: UILabel!
     @IBOutlet weak var signInRegister: UILabel!
+    var user:DatabaseReference!
+    
     
     
     var isSigned = true
@@ -91,4 +96,9 @@ class ViewControllerLogReg: UIViewController {
         loginRegisterBtn.setTitle("Register", for: .normal)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        emailField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        reEnterPasswordField.resignFirstResponder()
+    }
 }

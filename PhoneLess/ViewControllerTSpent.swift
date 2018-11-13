@@ -8,6 +8,8 @@
 
 import UIKit
 
+var time_spent:String?
+
 class ViewControllerTSpent: UIViewController {
 
     override func viewDidLoad() {
