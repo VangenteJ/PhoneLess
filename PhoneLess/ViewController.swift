@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+import CoreMotion
 
 var day1 = 1
 var steps_taken:String?
@@ -26,17 +27,27 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblTime_Spent: UILabel!
     @IBOutlet weak var lblSteps_Taken: UILabel!
     @IBOutlet weak var lblLevel: UILabel!
+    
+    var current_Steps:String?
+    var total_steps:String?
+    var level_Steps:String?
+    
     var ref:DatabaseReference!
     var handle:DatabaseHandle?
     
 
+    let activity_Manager = CMMotionActivityManager()
+    let pedometer = CMPedometer()
+    
 //Add database reference
 //Add info into database
     override func viewDidLoad() {
         super.viewDidLoad()
         //ViewControllerSTaken().update_Steps()
         ref = Database.database().reference()
+        user = ref.child("Users")
         isUser_logged()
+        update_Steps()
         display_Step_Level_Time_spent()
         
     }
@@ -95,6 +106,30 @@ class ViewController: UIViewController {
         }else{
             logRegisterPage()
         }
+    }
+    func stepCounter(){
+        pedometer.startUpdates(from: Date()) { (data, error) in
+            if error == nil{
+                DispatchQueue.main.async {
+                    self.current_Steps = data?.numberOfSteps.stringValue
+                    self.total_steps = data?.numberOfSteps.stringValue
+                    self.level_Steps = data?.numberOfSteps.stringValue
+                    user.child((email?.uid)!).child(day).child("Current Steps").setValue(self.current_Steps!)
+                    user.child((email?.uid)!).child("Total Steps").setValue(self.total_steps)
+                    print ("Here top \(Int(self.current_Steps!)!)")
+                    
+                }
+            }else{
+                return
+            }
+        }
+    }
+    
+    func update_Steps(){
+        if CMPedometer.isStepCountingAvailable(){
+            stepCounter()
+        }
+        
     }
 }
 
