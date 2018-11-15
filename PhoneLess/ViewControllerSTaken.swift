@@ -41,6 +41,7 @@ class ViewControllerSTaken: UIViewController {
             value = snapshot.value as! String
             if value != ""{
                 self.lblCurrentSteps.text = "\(value) Steps"
+                self.lblDisplay_Steps_On_Days_week_month_years.text = "\(value) Steps"
             }
             
         })
