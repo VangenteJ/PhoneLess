@@ -66,37 +66,18 @@ class ViewController: UIViewController {
         self.present(backLReg, animated: true, completion: nil)
     }
     
-    func addFrom_Database_To_Main_Menu(){
-        var value = ""
-        var timeSP = ""
-        handle = user.child((email?.uid)!).child(day).observe(.value, with: { (snapshot) in
-            print(snapshot)
-            value = snapshot.value as! String
-            if value != ""{
-                self.lblSteps_Taken.text = "\(value) Steps"
+    func display_Step_Level_Time_spent(){
+        
+        handle = user.child((email?.uid)!).child(day).child("Current Steps").observe(.value, with: { (snapshot) in
+            if snapshot.value != nil {
+                self.lblSteps_Taken.text = "S: \(String(describing: snapshot.value as! String))"
             }
-            print(value)
-            
         })
         
-        handle = user.child((email?.uid)!).child(timeS).observe(.value, with: { (snapshot) in
-            timeSP = snapshot.value as! String
-            if timeSP != ""{
-                self.lblTime_Spent.text = "\(timeSP) Minutes"
-            }
+        handle = user.child((email?.uid)!).child("Level").observe(.value, with: { (snapshot) in
+            self.lblLevel.text = "L: \(String(describing: snapshot.value as! NSNumber))"
         })
-    }
-    
-    func display_Step_Level_Time_spent(){
-        if steps_taken != nil{
-            self.lblSteps_Taken.text = steps_taken
-        }
-        if current_level != nil{
-            self.lblLevel.text = current_level
-        }
-        if time_spent != nil{
-            self.lblTime_Spent.text = time_spent
-        }
+        
     }
     
     func isUser_logged(){
@@ -130,6 +111,67 @@ class ViewController: UIViewController {
             stepCounter()
         }
         
+    }
+    
+    func resources(){
+        user.child((email?.uid)!).child(day).child("Current Steps").setValue(self.current_Steps!)
+        user.child((email?.uid)!).child("Total Steps").setValue(self.total_steps)
+        print ("Here top \(Int(self.current_Steps!)!)")
+        
+        
+        handle = user.child((email?.uid)!).child(day).child("Current Steps").observe(.value, with: { (snapshot) in
+            if snapshot.value != nil{
+                let main_step = snapshot.value as! String
+                
+                self.handle = user.child((email?.uid)!).child(day).child("Temp Steps").observe(.value, with: { (snapshot) in
+                    if snapshot.value != nil{
+                        let temp_step = snapshot.value as? String
+                        
+                        let actual_steps = Int(Int(main_step)! + Int(temp_step!)!)
+                        
+                        self.lblSteps_Taken.text = "S: \(String(actual_steps))"
+                        
+                        user.child((email?.uid)!).child(day).child("Current Steps").setValue(String(actual_steps))
+                    }
+                })
+            }else {
+                self.handle = user.child((email?.uid)!).child(day).child("Temp Steps").observe(.value, with: { (snapshot) in
+                    if snapshot.value != nil{
+                        let temp_step = snapshot.value as? String
+                        self.lblSteps_Taken.text = "S: \(String(describing: temp_step))"
+                        user.child((email?.uid)!).child(day).child("Current Steps").setValue(temp_step)
+                    }
+                })
+            }
+        })
+        handle = user.child((email?.uid)!).child(day).child("Total Steps").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil {
+                let main_step = snapshot.value as! String
+                
+                self.handle = user.child((email?.uid)!).child(day).child("Temp Total Steps").observe(.value, with: { (snapshot) in
+                    if snapshot.value != nil {
+                        let temp_step = snapshot.value as? String
+                        
+                        let total_steps = Int(Int(main_step)! + Int(temp_step!)!)
+                        
+                        user.child((email?.uid)!).child("Total Steps").setValue(String(total_steps))
+                    }
+                })
+            }else {
+                self.handle = user.child((email?.uid)!).child(day).child("Temp Total Steps").observe(.value, with: { (snapshot) in
+                    if snapshot.value != nil {
+                        let temp_step = snapshot.value as? String
+                        user.child((email?.uid)!).child("Total Steps").setValue(temp_step)
+                    }
+                })
+            }
+        })
+        
+        
+        handle = user.child((email?.uid)!).child("Level").observe(.value, with: { (snapshot) in
+            self.lblLevel.text = "L: \(String(describing: snapshot.value as! NSNumber))"
+            
+        })
     }
 }
 
