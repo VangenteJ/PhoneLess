@@ -239,7 +239,7 @@ class ViewControllerSTaken: UIViewController {
     }
     
     func different_levels(level_Now:Int) -> Int{
-        let level_increase = 2500
+        let level_increase = 10
         let updated_level = level_Now * level_increase
         return updated_level
     }
