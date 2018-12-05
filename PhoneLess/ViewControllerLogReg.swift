@@ -49,15 +49,15 @@ class ViewControllerLogReg: UIViewController {
         }
     }
     //Log and register the user into the app
-    //Redirect to menu after succesful log in/Register
-    //Change sign in/register label color to red if wrong login/Register
     @IBAction func btnLoginRegister(_ sender: Any) {
         if let email = emailField.text, let pass = passwordField.text{
             if isSigned{
                 Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
                     if user != nil{
+                        //Redirect to menu after succesful log in/Register
                         self.performSegue(withIdentifier: "logReg", sender: self)
                     }else{
+                        //Change sign in/register label color to red if wrong login/Register
                         self.signInRegister.textColor = UIColor.red
                         self.signInRegister.text = "Please make sure you are entering the right details!"
                     }
@@ -68,6 +68,7 @@ class ViewControllerLogReg: UIViewController {
                     if user != nil && pas2 == pass{
                         self.performSegue(withIdentifier: "logReg", sender: self)
                     }else{
+                        //Change sign in/register label color to red if wrong login/Register
                         self.signInRegister.textColor = UIColor.red
                         self.signInRegister.text = "Please enter correct details below!"
                     }
@@ -96,6 +97,7 @@ class ViewControllerLogReg: UIViewController {
         loginRegisterBtn.setTitle("Register", for: .normal)
     }
     
+    //Dismiss virtual keyboard by touching anywhere within the screen
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()

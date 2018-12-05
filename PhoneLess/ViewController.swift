@@ -12,11 +12,11 @@ import FirebaseDatabase
 import FirebaseAuth
 import CoreMotion
 
-var day1 = 1
+//Declaring global variables for use in different view controllers
 var steps_taken:String?
 var current_level:String?
-let day = String("StepsDay: \(day1)")
-let timeS = String("TimeDay: \(day1)")
+let day = String("Steps Date")
+let timeS = String("Time Date")
 let email = Auth.auth().currentUser
 var user:DatabaseReference!
 
@@ -40,16 +40,12 @@ class ViewController: UIViewController {
     let pedometer = CMPedometer()
     
 //Add database reference
-//Add info into database
     override func viewDidLoad() {
         super.viewDidLoad()
         //ViewControllerSTaken().update_Steps()
         ref = Database.database().reference()
         user = ref.child("Users")
         isUser_logged()
-        update_Steps()
-        display_Step_Level_Time_spent()
-        
     }
     
     //Log the user out of the app.
@@ -66,28 +62,62 @@ class ViewController: UIViewController {
         self.present(backLReg, animated: true, completion: nil)
     }
     
-    func display_Step_Level_Time_spent(){
-        
-        handle = user.child((email?.uid)!).child(day).child("Current Steps").observe(.value, with: { (snapshot) in
-            if snapshot.value != nil {
-                self.lblSteps_Taken.text = "S: \(String(describing: snapshot.value as! String))"
+    //Verify if there is any current data into our database as a means to find whether the user is new
+    func check_database_for_details(){
+        //Checks for steps
+        handle = user.child((email?.uid)!).child("Steps Date").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil {
+                let value = snapshot.value as? String
+                self.lblSteps_Taken.text = "S: \(value!)"
+                print ("here")
+                print (snapshot.value!)
+            }else{
+                user.child((email?.uid)!).child("Steps Date").setValue("0")
+            }
+            
+        })
+        //checks for total steps
+        handle = user.child((email?.uid)!).child("Total Steps").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil {
+            }else{
+               user.child((email?.uid)!).child("Total Steps").setValue("0")
+            }
+            
+        })
+        //checks for level
+        handle = user.child((email?.uid)!).child("Level").observe(.value, with: { (snapshot) in
+            if snapshot.value as? NSNumber != nil {
+                let value = snapshot.value as? NSNumber
+                self.lblLevel.text = "L: \(value!)"
+                
+            }else{
+                user.child((email?.uid)!).child("Level").setValue(0)
+                print (snapshot.value!)
             }
         })
-        
-        handle = user.child((email?.uid)!).child("Level").observe(.value, with: { (snapshot) in
-            self.lblLevel.text = "L: \(String(describing: snapshot.value as! NSNumber))"
+        //checks for time spent
+        handle = user.child((email?.uid)!).child("Time Date").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil {
+                let value = snapshot.value as? String
+                self.lblTime_Spent.text = "T: \(value!)"
+            }else{
+                user.child((email?.uid)!).child("Time Date").setValue("0")
+            }
         })
-        
     }
     
     func isUser_logged(){
-        //Check if user is loged in and redirect if not logged in
+        //Check if user is loged
         if Auth.auth().currentUser != nil{
-            
+            //Add and/or retrieve data from database
+            update_Steps()
+            check_database_for_details()
         }else{
+            //Redirect users if not logged in
             logRegisterPage()
         }
     }
+    //counts the steps
     func stepCounter(){
         pedometer.startUpdates(from: Date()) { (data, error) in
             if error == nil{
@@ -95,9 +125,9 @@ class ViewController: UIViewController {
                     self.current_Steps = data?.numberOfSteps.stringValue
                     self.total_steps = data?.numberOfSteps.stringValue
                     self.level_Steps = data?.numberOfSteps.stringValue
-                    user.child((email?.uid)!).child(day).child("Current Steps").setValue(self.current_Steps!)
+                    //adds steps into database
+                    user.child((email?.uid)!).child("Steps Date").setValue(self.current_Steps!)
                     user.child((email?.uid)!).child("Total Steps").setValue(self.total_steps)
-                    print ("Here top \(Int(self.current_Steps!)!)")
                     
                 }
             }else{
@@ -107,71 +137,11 @@ class ViewController: UIViewController {
     }
     
     func update_Steps(){
+        //Check for user activity and call step counting function
         if CMPedometer.isStepCountingAvailable(){
             stepCounter()
         }
         
-    }
-    
-    func resources(){
-        user.child((email?.uid)!).child(day).child("Current Steps").setValue(self.current_Steps!)
-        user.child((email?.uid)!).child("Total Steps").setValue(self.total_steps)
-        print ("Here top \(Int(self.current_Steps!)!)")
-        
-        
-        handle = user.child((email?.uid)!).child(day).child("Current Steps").observe(.value, with: { (snapshot) in
-            if snapshot.value != nil{
-                let main_step = snapshot.value as! String
-                
-                self.handle = user.child((email?.uid)!).child(day).child("Temp Steps").observe(.value, with: { (snapshot) in
-                    if snapshot.value != nil{
-                        let temp_step = snapshot.value as? String
-                        
-                        let actual_steps = Int(Int(main_step)! + Int(temp_step!)!)
-                        
-                        self.lblSteps_Taken.text = "S: \(String(actual_steps))"
-                        
-                        user.child((email?.uid)!).child(day).child("Current Steps").setValue(String(actual_steps))
-                    }
-                })
-            }else {
-                self.handle = user.child((email?.uid)!).child(day).child("Temp Steps").observe(.value, with: { (snapshot) in
-                    if snapshot.value != nil{
-                        let temp_step = snapshot.value as? String
-                        self.lblSteps_Taken.text = "S: \(String(describing: temp_step))"
-                        user.child((email?.uid)!).child(day).child("Current Steps").setValue(temp_step)
-                    }
-                })
-            }
-        })
-        handle = user.child((email?.uid)!).child(day).child("Total Steps").observe(.value, with: { (snapshot) in
-            if snapshot.value as? String != nil {
-                let main_step = snapshot.value as! String
-                
-                self.handle = user.child((email?.uid)!).child(day).child("Temp Total Steps").observe(.value, with: { (snapshot) in
-                    if snapshot.value != nil {
-                        let temp_step = snapshot.value as? String
-                        
-                        let total_steps = Int(Int(main_step)! + Int(temp_step!)!)
-                        
-                        user.child((email?.uid)!).child("Total Steps").setValue(String(total_steps))
-                    }
-                })
-            }else {
-                self.handle = user.child((email?.uid)!).child(day).child("Temp Total Steps").observe(.value, with: { (snapshot) in
-                    if snapshot.value != nil {
-                        let temp_step = snapshot.value as? String
-                        user.child((email?.uid)!).child("Total Steps").setValue(temp_step)
-                    }
-                })
-            }
-        })
-        
-        
-        handle = user.child((email?.uid)!).child("Level").observe(.value, with: { (snapshot) in
-            self.lblLevel.text = "L: \(String(describing: snapshot.value as! NSNumber))"
-            
-        })
     }
 }
 
