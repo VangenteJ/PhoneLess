@@ -69,8 +69,6 @@ class ViewController: UIViewController {
             if snapshot.value as? String != nil {
                 let value = snapshot.value as? String
                 self.lblSteps_Taken.text = "S: \(value!)"
-                print ("here")
-                print (snapshot.value!)
             }else{
                 user.child((email?.uid)!).child("Steps Date").setValue("0")
             }
