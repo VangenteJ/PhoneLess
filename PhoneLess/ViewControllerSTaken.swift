@@ -13,7 +13,6 @@ import FirebaseAuth
 
 class ViewControllerSTaken: UIViewController {
 
-    @IBOutlet weak var segment_Display_Day_Week_Month_Years: UISegmentedControl!
     @IBOutlet weak var lblDisplay_Steps_On_Days_week_month_years: UILabel!
     @IBOutlet weak var lblCurrentSteps: UILabel!
     @IBOutlet weak var stepsTo_next_Level: UILabel!

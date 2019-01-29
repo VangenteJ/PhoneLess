@@ -11,6 +11,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 import CoreMotion
+import CoreData
 
 //Declaring global variables for use in different view controllers
 var steps_taken:String?
@@ -32,12 +33,16 @@ class ViewController: UIViewController {
     var total_steps:String?
     var level_Steps:String?
     
+    var number_of_steps:String?
+    
     var ref:DatabaseReference!
     var handle:DatabaseHandle?
     
 
     let activity_Manager = CMMotionActivityManager()
     let pedometer = CMPedometer()
+    
+    
     
 //Add database reference
     override func viewDidLoad() {
@@ -46,6 +51,7 @@ class ViewController: UIViewController {
         ref = Database.database().reference()
         user = ref.child("Users")
         isUser_logged()
+        
     }
     
     //Log the user out of the app.
@@ -120,6 +126,8 @@ class ViewController: UIViewController {
         pedometer.startUpdates(from: Date()) { (data, error) in
             if error == nil{
                 DispatchQueue.main.async {
+                    self.number_of_steps = data?.numberOfSteps.stringValue
+                    UserDefaults.standard.set(data?.numberOfSteps.stringValue, forKey: "steps")
                     self.current_Steps = data?.numberOfSteps.stringValue
                     self.total_steps = data?.numberOfSteps.stringValue
                     self.level_Steps = data?.numberOfSteps.stringValue
@@ -139,6 +147,10 @@ class ViewController: UIViewController {
         if CMPedometer.isStepCountingAvailable(){
             stepCounter()
         }
+        
+    }
+    
+    func save_steps_locally(){
         
     }
 }

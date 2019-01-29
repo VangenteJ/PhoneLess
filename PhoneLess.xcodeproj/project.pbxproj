@@ -17,12 +17,8 @@
 		0C9B18A02186124E009ECB0C /* roundingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B189F2186124E009ECB0C /* roundingImage.swift */; };
 		0C9B18A2218612AD009ECB0C /* ViewControllerTSpent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18A1218612AD009ECB0C /* ViewControllerTSpent.swift */; };
 		0C9B18A4218612C0009ECB0C /* ViewControllerSTaken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18A3218612C0009ECB0C /* ViewControllerSTaken.swift */; };
-		0C9B18A6218612D4009ECB0C /* ViewControllerAchievements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18A5218612D4009ECB0C /* ViewControllerAchievements.swift */; };
-		0C9B18A821861373009ECB0C /* ViewControllerADetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18A721861373009ECB0C /* ViewControllerADetails.swift */; };
-		0C9B18AA2186139A009ECB0C /* ViewControllerFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18A92186139A009ECB0C /* ViewControllerFriends.swift */; };
 		0C9B18AC21861425009ECB0C /* ViewControllerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18AB21861425009ECB0C /* ViewControllerSettings.swift */; };
 		0C9B18AE21861434009ECB0C /* ViewControllerChallenges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18AD21861434009ECB0C /* ViewControllerChallenges.swift */; };
-		0C9B18B021861453009ECB0C /* ViewControllerLeaderBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18AF21861453009ECB0C /* ViewControllerLeaderBoard.swift */; };
 		C9649D6523C8EE357CA24728 /* Pods_PhoneLess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DAD0A6CE5A3CA2D43FBC23 /* Pods_PhoneLess.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,12 +36,8 @@
 		0C9B189F2186124E009ECB0C /* roundingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roundingImage.swift; sourceTree = "<group>"; };
 		0C9B18A1218612AD009ECB0C /* ViewControllerTSpent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTSpent.swift; sourceTree = "<group>"; };
 		0C9B18A3218612C0009ECB0C /* ViewControllerSTaken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSTaken.swift; sourceTree = "<group>"; };
-		0C9B18A5218612D4009ECB0C /* ViewControllerAchievements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAchievements.swift; sourceTree = "<group>"; };
-		0C9B18A721861373009ECB0C /* ViewControllerADetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerADetails.swift; sourceTree = "<group>"; };
-		0C9B18A92186139A009ECB0C /* ViewControllerFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFriends.swift; sourceTree = "<group>"; };
 		0C9B18AB21861425009ECB0C /* ViewControllerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSettings.swift; sourceTree = "<group>"; };
 		0C9B18AD21861434009ECB0C /* ViewControllerChallenges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerChallenges.swift; sourceTree = "<group>"; };
-		0C9B18AF21861453009ECB0C /* ViewControllerLeaderBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLeaderBoard.swift; sourceTree = "<group>"; };
 		78061F5CAB54F53B488F95D3 /* Pods-PhoneLess.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhoneLess.debug.xcconfig"; path = "Target Support Files/Pods-PhoneLess/Pods-PhoneLess.debug.xcconfig"; sourceTree = "<group>"; };
 		CC4D3D16A13C1649A12CB4CB /* Pods-PhoneLess.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhoneLess.release.xcconfig"; path = "Target Support Files/Pods-PhoneLess/Pods-PhoneLess.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,12 +80,8 @@
 				0C9B189D2185E47D009ECB0C /* ViewControllerLogReg.swift */,
 				0C9B188B2184B92D009ECB0C /* ViewController.swift */,
 				0C9B18A3218612C0009ECB0C /* ViewControllerSTaken.swift */,
-				0C9B18A5218612D4009ECB0C /* ViewControllerAchievements.swift */,
 				0C9B18A1218612AD009ECB0C /* ViewControllerTSpent.swift */,
-				0C9B18A721861373009ECB0C /* ViewControllerADetails.swift */,
-				0C9B18A92186139A009ECB0C /* ViewControllerFriends.swift */,
 				0C9B18AD21861434009ECB0C /* ViewControllerChallenges.swift */,
-				0C9B18AF21861453009ECB0C /* ViewControllerLeaderBoard.swift */,
 				0C9B18AB21861425009ECB0C /* ViewControllerSettings.swift */,
 				0C9B188D2184B92D009ECB0C /* Main.storyboard */,
 				0C9B18902184B92E009ECB0C /* Assets.xcassets */,
@@ -253,12 +241,8 @@
 				0C9B189E2185E47D009ECB0C /* ViewControllerLogReg.swift in Sources */,
 				0C9B188C2184B92D009ECB0C /* ViewController.swift in Sources */,
 				0C9B18A2218612AD009ECB0C /* ViewControllerTSpent.swift in Sources */,
-				0C9B18A6218612D4009ECB0C /* ViewControllerAchievements.swift in Sources */,
 				0C9B18AE21861434009ECB0C /* ViewControllerChallenges.swift in Sources */,
 				0C9B188A2184B92D009ECB0C /* AppDelegate.swift in Sources */,
-				0C9B18B021861453009ECB0C /* ViewControllerLeaderBoard.swift in Sources */,
-				0C9B18A821861373009ECB0C /* ViewControllerADetails.swift in Sources */,
-				0C9B18AA2186139A009ECB0C /* ViewControllerFriends.swift in Sources */,
 				0C9B18AC21861425009ECB0C /* ViewControllerSettings.swift in Sources */,
 				0C9B18A4218612C0009ECB0C /* ViewControllerSTaken.swift in Sources */,
 				0C9B18A02186124E009ECB0C /* roundingImage.swift in Sources */,
