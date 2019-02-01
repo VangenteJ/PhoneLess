@@ -31,9 +31,7 @@ class ViewController: UIViewController {
     
     var current_Steps:String?
     var total_steps:String?
-    var level_Steps:String?
     
-    var number_of_steps:String?
     
     var ref:DatabaseReference!
     var handle:DatabaseHandle?
@@ -123,16 +121,25 @@ class ViewController: UIViewController {
     }
     //counts the steps
     func stepCounter(){
+        let formatter = DateFormatter()
+        // initially set the format based on datepicker date / server String
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: Date()) // string purpose I add here
+        // convert string to date
+        let myDate = formatter.date(from: myString)
+        //then again set the date format whhich type of output needed
+        formatter.dateFormat = "dd-MMM-yyyy"
+        // again convert date to string
+        let myStringafd = formatter.string(from: myDate!)
+        
         pedometer.startUpdates(from: Date()) { (data, error) in
             if error == nil{
                 DispatchQueue.main.async {
-                    self.number_of_steps = data?.numberOfSteps.stringValue
-                    UserDefaults.standard.set(data?.numberOfSteps.stringValue, forKey: "steps")
                     self.current_Steps = data?.numberOfSteps.stringValue
                     self.total_steps = data?.numberOfSteps.stringValue
-                    self.level_Steps = data?.numberOfSteps.stringValue
                     //adds steps into database
-                    user.child((email?.uid)!).child("Steps Date").setValue(self.current_Steps!)
+                    user.child((email?.uid)!).child(myStringafd).setValue(self.current_Steps!)
                     user.child((email?.uid)!).child("Total Steps").setValue(self.total_steps)
                     
                 }
@@ -147,10 +154,6 @@ class ViewController: UIViewController {
         if CMPedometer.isStepCountingAvailable(){
             stepCounter()
         }
-        
-    }
-    
-    func save_steps_locally(){
         
     }
 }

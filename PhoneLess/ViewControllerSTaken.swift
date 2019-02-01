@@ -18,6 +18,9 @@ class ViewControllerSTaken: UIViewController {
     @IBOutlet weak var stepsTo_next_Level: UILabel!
     @IBOutlet weak var lblLevel: UILabel!
     @IBOutlet weak var lblTotalSteps: UILabel!
+    
+    @IBOutlet weak var txtDate_to_search: UITextField!
+    
     var level_Step:String?
     var ref: DatabaseReference!
     var handle:DatabaseHandle?
@@ -31,14 +34,48 @@ class ViewControllerSTaken: UIViewController {
 
     }
     
+    
+    @IBAction func search_for_steps_by_date(_ sender: Any) {
+        self.lblDisplay_Steps_On_Days_week_month_years.textColor = UIColor.black
+        if txtDate_to_search.text != ""{
+            let user_input = txtDate_to_search.text
+            handle = user.child((email?.uid)!).child(user_input!).observe(.value, with: { (snapshot) in
+                //Checks for steps in database
+                let value = snapshot.value as? String
+                if value != nil{
+                    self.lblDisplay_Steps_On_Days_week_month_years.isHidden = false
+                    self.lblDisplay_Steps_On_Days_week_month_years.text = "\(value!) Steps"
+                }else {
+                    self.lblDisplay_Steps_On_Days_week_month_years.isHidden = false
+                    self.lblDisplay_Steps_On_Days_week_month_years.textColor = UIColor.red
+                    self.lblDisplay_Steps_On_Days_week_month_years.text = "Please make sure you are adding a correct date by the format dd-mmm-yyyy, make sure it is a date when you used the app."
+                }
+            })
+        }
+        
+        
+    }
+    
     //Add data from database into Steps Taken page
     func addFrom_Database(){
-        handle = user.child((email?.uid)!).child("Steps Date").observe(.value, with: { (snapshot) in
+        
+        let formatter = DateFormatter()
+        // initially set the format based on datepicker date / server String
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: Date()) // string purpose I add here
+        // convert string to date
+        let myDate = formatter.date(from: myString)
+        //then again set the date format whhich type of output needed
+        formatter.dateFormat = "dd-MMM-yyyy"
+        // again convert date to string
+        let myStringafd = formatter.string(from: myDate!)
+        
+        handle = user.child((email?.uid)!).child(myStringafd).observe(.value, with: { (snapshot) in
             //Checks for steps in database
             let value = snapshot.value as? String
             if value != nil{
                 self.lblCurrentSteps.text = "\(value!) Steps"
-                self.lblDisplay_Steps_On_Days_week_month_years.text = "\(value!) Steps"
             }
             
         })
