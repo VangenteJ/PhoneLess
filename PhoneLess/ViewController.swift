@@ -49,6 +49,8 @@ class ViewController: UIViewController {
         ref = Database.database().reference()
         user = ref.child("Users")
         isUser_logged()
+        save_day_to_db()
+        add_steps_to_db()
         
     }
     
@@ -97,15 +99,6 @@ class ViewController: UIViewController {
                 print (snapshot.value!)
             }
         })
-        //checks for time spent
-        handle = user.child((email?.uid)!).child("Time Date").observe(.value, with: { (snapshot) in
-            if snapshot.value as? String != nil {
-                let value = snapshot.value as? String
-                self.lblTime_Spent.text = "T: \(value!)"
-            }else{
-                user.child((email?.uid)!).child("Time Date").setValue("0")
-            }
-        })
     }
     
     func isUser_logged(){
@@ -133,19 +126,16 @@ class ViewController: UIViewController {
         // again convert date to string
         let myStringafd = formatter.string(from: myDate!)
         
+        user.child((email?.uid)!).child(myStringafd).setValue(self.current_Steps!)
+        
         pedometer.startUpdates(from: Date()) { (data, error) in
             if error == nil{
                 DispatchQueue.main.async {
                     self.current_Steps = data?.numberOfSteps.stringValue
-                    self.total_steps = data?.numberOfSteps.stringValue
-                    //adds steps into database
-                    user.child((email?.uid)!).child(myStringafd).setValue(self.current_Steps!)
-                    user.child((email?.uid)!).child("Total Steps").setValue(self.total_steps)
                     
+                    UserDefaults.standard.set(self.current_Steps, forKey: "Current steps")
                 }
-            }else{
-                return
-            }
+            }else{return}
         }
     }
     
@@ -155,6 +145,67 @@ class ViewController: UIViewController {
             stepCounter()
         }
         
+    }
+    
+    func save_day_to_db(){
+        
+        let formatter = DateFormatter()
+        // initially set the format based on datepicker date / server String
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: Date()) // string purpose I add here
+        // convert string to date
+        let myDate = formatter.date(from: myString)
+        //then again set the date format whhich type of output needed
+        formatter.dateFormat = "dd"
+        // again convert date to string
+        let myStringafd = formatter.string(from: myDate!)
+        
+        user.child((email?.uid)!).child("Day").setValue(myStringafd)
+    }
+    
+    func add_steps_to_db(){
+        let format = DateFormatter()
+        // initially set the format based on datepicker date / server String
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let StepString = format.string(from: Date()) // string purpose I add here
+        // convert string to date
+        let S_Date = format.date(from: StepString)
+        //then again set the date format whhich type of output needed
+        format.dateFormat = "dd-MM-yyyy"
+        // again convert date to string
+        let StepDate = format.string(from: S_Date!)
+        
+        handle = user.child((email?.uid)!).child("Day").observe(.value, with: { (snapshot) in
+            
+            if let value = snapshot.value as? String{
+                if value != ""{
+                    let yesterday = UserDefaults.standard.object(forKey: "Yesterday") as? String
+                    if yesterday != nil{
+                        if value != yesterday{
+                            let temp_steps = UserDefaults.standard.object(forKey: "Current steps") as? String
+                            
+                            if temp_steps != nil{
+                                let actual_steps = Int(temp_steps!)! - Int(temp_steps!)!
+                                let totalSteps = Int(temp_steps!)! + Int(temp_steps!)!
+                                
+                                user.child((email?.uid)!).child(StepDate).setValue(actual_steps)
+                                user.child((email?.uid)!).child("Total Steps").setValue(totalSteps)
+                            }
+                        }
+                    }else{
+                        let temp_steps = UserDefaults.standard.object(forKey: "Current steps") as? String
+                        
+                        if temp_steps != nil{
+                            user.child((email?.uid)!).child(StepDate).setValue(temp_steps)
+                            user.child((email?.uid)!).child("Total Steps").setValue(temp_steps)
+                        }
+                    }
+                   UserDefaults.standard.set(value, forKey: "Yesterday")
+                }
+            }
+        })
     }
 }
 
