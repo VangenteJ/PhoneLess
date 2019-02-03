@@ -76,8 +76,8 @@ class ViewControllerSTaken: UIViewController {
             let value = snapshot.value as? String
             if value != nil{
                 self.lblCurrentSteps.text = "\(value!) Steps"
-            }else{print ("empty?")
-                print (myStringafd)
+            }else{
+                self.lblCurrentSteps.text = "0"
             }
             
         })

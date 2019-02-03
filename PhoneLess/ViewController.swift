@@ -92,6 +92,7 @@ class ViewController: UIViewController {
                 self.lblSteps_Taken.text = "S: \(value!)"
             }else{
                 user.child((email?.uid)!).child("Steps Date").setValue("0")
+                self.lblSteps_Taken.text = "S: 0"
             }
             
         })
