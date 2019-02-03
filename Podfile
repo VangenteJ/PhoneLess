@@ -9,5 +9,6 @@ target 'PhoneLess' do
 	pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'IQKeyboardManagerSwift'
+  pod 'Firebase/Storage'
 
 end

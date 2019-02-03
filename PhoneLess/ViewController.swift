@@ -12,6 +12,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import CoreMotion
 import CoreData
+import FirebaseStorage
 
 //Declaring global variables for use in different view controllers
 var steps_taken:String?
@@ -25,9 +26,13 @@ var user:DatabaseReference!
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var uiimage: UIImageView!
+    
     @IBOutlet weak var lblTime_Spent: UILabel!
     @IBOutlet weak var lblSteps_Taken: UILabel!
     @IBOutlet weak var lblLevel: UILabel!
+    
+    @IBOutlet weak var lbl_personal_quote: UILabel!
     
     var current_Steps:String?
     var total_steps:String?
@@ -49,8 +54,6 @@ class ViewController: UIViewController {
         ref = Database.database().reference()
         user = ref.child("Users")
         isUser_logged()
-        save_day_to_db()
-        add_steps_to_db()
         
     }
     
@@ -70,8 +73,20 @@ class ViewController: UIViewController {
     
     //Verify if there is any current data into our database as a means to find whether the user is new
     func check_database_for_details(){
+        let format = DateFormatter()
+        // initially set the format based on datepicker date / server String
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let StepString = format.string(from: Date()) // string purpose I add here
+        // convert string to date
+        let S_Date = format.date(from: StepString)
+        //then again set the date format whhich type of output needed
+        format.dateFormat = "dd-MM-yyyy"
+        // again convert date to string
+        let StepDate = format.string(from: S_Date!)
+        
         //Checks for steps
-        handle = user.child((email?.uid)!).child("Steps Date").observe(.value, with: { (snapshot) in
+        handle = user.child((email?.uid)!).child(StepDate).observe(.value, with: { (snapshot) in
             if snapshot.value as? String != nil {
                 let value = snapshot.value as? String
                 self.lblSteps_Taken.text = "S: \(value!)"
@@ -99,6 +114,16 @@ class ViewController: UIViewController {
                 print (snapshot.value!)
             }
         })
+        
+        //Checks for personal quotes
+        handle = user.child((email?.uid)!).child("Own Quote").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil {
+                let o_quote = snapshot.value as? String
+                self.lbl_personal_quote.text = o_quote
+            }else{
+                self.lbl_personal_quote.text = "To walk, is a privilege but to keep healthy is a choice!"
+            }
+        })
     }
     
     func isUser_logged(){
@@ -107,6 +132,9 @@ class ViewController: UIViewController {
             //Add and/or retrieve data from database
             update_Steps()
             check_database_for_details()
+            save_day_to_db()
+            add_steps_to_db()
+            chechImages()
         }else{
             //Redirect users if not logged in
             logRegisterPage()
@@ -114,24 +142,13 @@ class ViewController: UIViewController {
     }
     //counts the steps
     func stepCounter(){
-        let formatter = DateFormatter()
-        // initially set the format based on datepicker date / server String
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let myString = formatter.string(from: Date()) // string purpose I add here
-        // convert string to date
-        let myDate = formatter.date(from: myString)
-        //then again set the date format whhich type of output needed
-        formatter.dateFormat = "dd-MMM-yyyy"
-        // again convert date to string
-        let myStringafd = formatter.string(from: myDate!)
-        
-        user.child((email?.uid)!).child(myStringafd).setValue(self.current_Steps!)
         
         pedometer.startUpdates(from: Date()) { (data, error) in
             if error == nil{
                 DispatchQueue.main.async {
                     self.current_Steps = data?.numberOfSteps.stringValue
+                    
+                    user.child((email?.uid)!).child("Temporary Steps").setValue(self.current_Steps)
                     
                     UserDefaults.standard.set(self.current_Steps, forKey: "Current steps")
                 }
@@ -181,31 +198,55 @@ class ViewController: UIViewController {
             
             if let value = snapshot.value as? String{
                 if value != ""{
-                    let yesterday = UserDefaults.standard.object(forKey: "Yesterday") as? String
-                    if yesterday != nil{
-                        if value != yesterday{
-                            let temp_steps = UserDefaults.standard.object(forKey: "Current steps") as? String
-                            
-                            if temp_steps != nil{
-                                let actual_steps = Int(temp_steps!)! - Int(temp_steps!)!
-                                let totalSteps = Int(temp_steps!)! + Int(temp_steps!)!
+                    self.handle = user.child((email?.uid)!).child("Yesterday").observe(.value, with: { (snapshot) in
+                        let yesterday = snapshot.value as? String
+                        if yesterday != nil{
+                            if value != yesterday{
+                                self.handle = user.child((email?.uid)!).child("Temporary Steps").observe(.value, with: { (snapshot) in
+                                    let temp_steps = snapshot.value as? String
+                                    
+                                    if temp_steps != nil{
+                                        let actual_steps = Int(temp_steps!)! - Int(temp_steps!)!
+                                        let totalSteps = Int(temp_steps!)! + Int(temp_steps!)!
+                                        
+                                        user.child((email?.uid)!).child(StepDate).setValue(actual_steps)
+                                        user.child((email?.uid)!).child("Total Steps").setValue(totalSteps)
+                                    }
+                                })
+                        }else{
+                            self.handle = user.child((email?.uid)!).child("Temporary Steps").observe(.value, with: { (snapshot) in
+                                let temp_steps = snapshot.value as? String
                                 
-                                user.child((email?.uid)!).child(StepDate).setValue(actual_steps)
-                                user.child((email?.uid)!).child("Total Steps").setValue(totalSteps)
-                            }
-                        }
-                    }else{
-                        let temp_steps = UserDefaults.standard.object(forKey: "Current steps") as? String
-                        
-                        if temp_steps != nil{
-                            user.child((email?.uid)!).child(StepDate).setValue(temp_steps)
-                            user.child((email?.uid)!).child("Total Steps").setValue(temp_steps)
+                                if temp_steps != nil{
+                                    
+                                    user.child((email?.uid)!).child(StepDate).setValue(temp_steps)
+                                    user.child((email?.uid)!).child("Total Steps").setValue(temp_steps)
+                                }
+                            })
                         }
                     }
-                   UserDefaults.standard.set(value, forKey: "Yesterday")
+                    })
+                   user.child((email?.uid)!).child("Yesterday").setValue(value)
                 }
             }
         })
+    }
+    
+    func chechImages(){
+        let imagepath = email?.uid
+        print (imagepath! + "/Images/Number1")
+        let image1 = Storage.storage().reference(withPath: imagepath! + "/Images/Number1")
+        
+        image1.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if error != nil {
+                // Add logo image if no image found
+                self.uiimage.image = UIImage(named: "Logo")
+            } else {
+                // Data for "images"
+                self.uiimage.image = UIImage(data: data!)
+                
+            }
+        }
     }
 }
 

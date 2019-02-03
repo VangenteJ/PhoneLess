@@ -67,7 +67,7 @@ class ViewControllerSTaken: UIViewController {
         // convert string to date
         let myDate = formatter.date(from: myString)
         //then again set the date format whhich type of output needed
-        formatter.dateFormat = "dd-MMM-yyyy"
+        formatter.dateFormat = "dd-MM-yyyy"
         // again convert date to string
         let myStringafd = formatter.string(from: myDate!)
         
@@ -76,6 +76,8 @@ class ViewControllerSTaken: UIViewController {
             let value = snapshot.value as? String
             if value != nil{
                 self.lblCurrentSteps.text = "\(value!) Steps"
+            }else{print ("empty?")
+                print (myStringafd)
             }
             
         })
