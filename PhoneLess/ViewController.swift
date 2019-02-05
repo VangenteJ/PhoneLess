@@ -111,7 +111,7 @@ class ViewController: UIViewController {
                 self.lblLevel.text = "L: \(value!)"
                 
             }else{
-                user.child((email?.uid)!).child("Level").setValue(0)
+                user.child((email?.uid)!).child("Level").setValue("0")
                 print (snapshot.value!)
             }
         })

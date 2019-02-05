@@ -109,217 +109,218 @@ class ViewControllerSTaken: UIViewController {
     
     //Control steps leveling calculations
     func steps_control(){
-        var steps_for_level:String?
         //Gets step data from database
         handle = user.child((email?.uid)!).child("Total Steps").observe(.value, with: { (snapshot) in
-            steps_for_level = snapshot.value as? String
-            //Gets level data from database
-            self.handle = user.child((email?.uid)!).child("Level").observe(.value, with: { (snapshot) in
-                if let user_level = snapshot.value as? NSNumber{
-                //Switch case to add different actions through different levels
-                switch user_level {
-                case 0:
-                    //Call calcLevel and different_levels and pass in parameters for calculation
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    //Call level_up function and give parameters
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 1:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 2:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                case 3:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 4:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 5:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 6:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                case 7:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 8:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 9:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 10:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 11:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 12:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 13:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 14:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 15:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 16:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 17:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 18:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                case 19:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 20:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 21:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 22:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 23:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 24:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                case 25:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 26:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 27:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 28:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 29:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 30:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 31:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                case 32:
-                    
-                    self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
-                    
-                    self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
-                    
-                default:
-                    //Prints error if switch case fails to operate properly
-                    print ("Error")
-                }
-                }
-            })
+            let steps_for_level = snapshot.value as? String
+            if steps_for_level != nil{
+                //Gets level data from database
+                self.handle = user.child((email?.uid)!).child("Level").observe(.value, with: { (snapshot) in
+                    if let user_level = snapshot.value as? NSNumber{
+                        //Switch case to add different actions through different levels
+                        switch user_level {
+                        case 0:
+                            //Call calcLevel and different_levels and pass in parameters for calculation
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            //Call level_up function and give parameters
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 1:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 2:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                        case 3:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 4:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 5:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 6:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                        case 7:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 8:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 9:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 10:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 11:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 12:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 13:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 14:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 15:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 16:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 17:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 18:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                        case 19:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 20:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 21:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 22:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 23:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 24:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                        case 25:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 26:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 27:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 28:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 29:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 30:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 31:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        case 32:
+                            
+                            self.stepsTo_next_Level.text = String(describing:(self.calcLevel(a: self.different_levels(level_Now: Int(truncating: user_level)), b: Int(steps_for_level!)!)))
+                            
+                            self.level_up(level_value: Int(self.stepsTo_next_Level.text!)!, case_value: Int(truncating: user_level))
+                            
+                        default:
+                            //Prints error if switch case fails to operate properly
+                            print ("Error")
+                        }
+                    }
+                })
+            }
         })
     }
     
