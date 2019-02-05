@@ -183,6 +183,30 @@ class ViewController: UIViewController {
     }
     
     func add_steps_to_db(){
+        let formatter = DateFormatter()
+        // initially set the format based on datepicker date / server String
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: Date()) // string purpose I add here
+        // convert string to date
+        let myDate = formatter.date(from: myString)
+        //then again set the date format whhich type of output needed
+        formatter.dateFormat = "dd"
+        // again convert date to string
+        let myStringafd = formatter.string(from: myDate!)
+        
+        handle = user.child((email?.uid)!).child("Loop").observe(.value, with: { (snapshot) in
+            let loop_yes_no = snapshot.value as? String
+            if loop_yes_no != nil{
+                if Int(loop_yes_no!) == 1{
+                    user.child((email?.uid)!).child("yesterday").setValue(myStringafd)
+                }
+            }
+        })
+        
+        user.child((email?.uid)!).child("Day").setValue(myStringafd)
+        
+        
         let format = DateFormatter()
         // initially set the format based on datepicker date / server String
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -207,11 +231,20 @@ class ViewController: UIViewController {
                                     let temp_steps = snapshot.value as? String
                                     
                                     if temp_steps != nil{
-                                        let actual_steps = Int(temp_steps!)! - Int(temp_steps!)!
-                                        let totalSteps = Int(temp_steps!)! + Int(temp_steps!)!
-                                        
+                                        var actual_steps = Int(temp_steps!)! - Int(temp_steps!)!
+                                        if actual_steps <= 0{
+                                            actual_steps = 0
+                                            user.child((email?.uid)!).child(StepDate).setValue(actual_steps)
+                                        }
+                                        self.handle = user.child((email?.uid)!).child("Total Steps").observe(.value, with: { (snapshot) in
+                                            let t_steps = snapshot.value as? String
+                                            if t_steps != nil{
+                                                let totalSteps = Int(t_steps!)! + Int(temp_steps!)!
+                                                user.child((email?.uid)!).child("Total Steps").setValue(totalSteps)
+                                            }
+                                        })
                                         user.child((email?.uid)!).child(StepDate).setValue(actual_steps)
-                                        user.child((email?.uid)!).child("Total Steps").setValue(totalSteps)
+                                        user.child((email?.uid)!).child("Loop").setValue("2")
                                     }
                                 })
                         }else{
@@ -227,7 +260,7 @@ class ViewController: UIViewController {
                         }
                     }
                     })
-                   user.child((email?.uid)!).child("Yesterday").setValue(value)
+                   
                 }
             }
         })

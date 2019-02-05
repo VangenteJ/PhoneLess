@@ -28,12 +28,14 @@ class ViewControllerLogReg: UIViewController {
     
     var isSigned = true
     
-    
+    var ref:DatabaseReference!
+    var handle:DatabaseHandle?
     
     //Calling sign in function
     //To show sign in option first
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
         
         signIN()
 
@@ -50,9 +52,9 @@ class ViewControllerLogReg: UIViewController {
     }
     //Log and register the user into the app
     @IBAction func btnLoginRegister(_ sender: Any) {
-        if let email = emailField.text, let pass = passwordField.text{
+        if let email1 = emailField.text, let pass = passwordField.text{
             if isSigned{
-                Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
+                Auth.auth().signIn(withEmail: email1, password: pass) { (user, error) in
                     if user != nil{
                         //Redirect to menu after succesful log in/Register
                         self.performSegue(withIdentifier: "logReg", sender: self)
@@ -64,8 +66,10 @@ class ViewControllerLogReg: UIViewController {
                 }
             }else{
                 let pas2 = reEnterPasswordField.text
-                Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
+                Auth.auth().createUser(withEmail: email1, password: pass) { (user, error) in
                     if user != nil && pas2 == pass{
+                        self.ref.child("Users").child((email?.uid)!).child("Loop").setValue("1")
+                        self.ref.child("Users").child((email?.uid)!).child("Total Steps").setValue("0")
                         self.performSegue(withIdentifier: "logReg", sender: self)
                     }else{
                         //Change sign in/register label color to red if wrong login/Register

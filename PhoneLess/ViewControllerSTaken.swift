@@ -45,10 +45,12 @@ class ViewControllerSTaken: UIViewController {
                 if value != nil{
                     self.lblDisplay_Steps_On_Days_week_month_years.isHidden = false
                     self.lblDisplay_Steps_On_Days_week_month_years.text = "\(value!) Steps"
+                    self.txtDate_to_search.text = ""
                 }else {
                     self.lblDisplay_Steps_On_Days_week_month_years.isHidden = false
                     self.lblDisplay_Steps_On_Days_week_month_years.textColor = UIColor.red
-                    self.lblDisplay_Steps_On_Days_week_month_years.text = "Please make sure you are adding a correct date by the format dd-mmm-yyyy, make sure it is a date when you used the app."
+                    self.lblDisplay_Steps_On_Days_week_month_years.text = "Please make sure you are adding a correct date by the format dd-mm-yyyy, make sure it is a date when you used the app."
+                    self.txtDate_to_search.text = ""
                 }
             })
         }
