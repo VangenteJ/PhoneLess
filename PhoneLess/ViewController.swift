@@ -149,9 +149,9 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.current_Steps = data?.numberOfSteps.stringValue
                     
-                    user.child((email?.uid)!).child("Temporary Steps").setValue(self.current_Steps)
+                    UserDefaults.standard.set(self.current_Steps, forKey: "Current Steps")
                     
-                    UserDefaults.standard.set(self.current_Steps, forKey: "Current steps")
+                    user.child((email?.uid)!).child("Temporary Steps").setValue(self.current_Steps)
                 }
             }else{return}
         }
