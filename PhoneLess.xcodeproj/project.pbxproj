@@ -19,6 +19,10 @@
 		0C9B18A4218612C0009ECB0C /* ViewControllerSTaken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18A3218612C0009ECB0C /* ViewControllerSTaken.swift */; };
 		0C9B18AC21861425009ECB0C /* ViewControllerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18AB21861425009ECB0C /* ViewControllerSettings.swift */; };
 		0C9B18AE21861434009ECB0C /* ViewControllerChallenges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9B18AD21861434009ECB0C /* ViewControllerChallenges.swift */; };
+		0CF2CB9B22161F4200D5DAEA /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CB9A22161F4200D5DAEA /* ResetPasswordViewController.swift */; };
+		0CF2CB9D22161F5500D5DAEA /* maintenanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CB9C22161F5500D5DAEA /* maintenanceViewController.swift */; };
+		0CF2CB9F22161F6A00D5DAEA /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CB9E22161F6A00D5DAEA /* ConnectionViewController.swift */; };
+		0CF2CBA12217550100D5DAEA /* checkNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF2CBA02217550100D5DAEA /* checkNet.swift */; };
 		C9649D6523C8EE357CA24728 /* Pods_PhoneLess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03DAD0A6CE5A3CA2D43FBC23 /* Pods_PhoneLess.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +42,10 @@
 		0C9B18A3218612C0009ECB0C /* ViewControllerSTaken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSTaken.swift; sourceTree = "<group>"; };
 		0C9B18AB21861425009ECB0C /* ViewControllerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSettings.swift; sourceTree = "<group>"; };
 		0C9B18AD21861434009ECB0C /* ViewControllerChallenges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerChallenges.swift; sourceTree = "<group>"; };
+		0CF2CB9A22161F4200D5DAEA /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		0CF2CB9C22161F5500D5DAEA /* maintenanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = maintenanceViewController.swift; sourceTree = "<group>"; };
+		0CF2CB9E22161F6A00D5DAEA /* ConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
+		0CF2CBA02217550100D5DAEA /* checkNet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkNet.swift; sourceTree = "<group>"; };
 		78061F5CAB54F53B488F95D3 /* Pods-PhoneLess.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhoneLess.debug.xcconfig"; path = "Target Support Files/Pods-PhoneLess/Pods-PhoneLess.debug.xcconfig"; sourceTree = "<group>"; };
 		CC4D3D16A13C1649A12CB4CB /* Pods-PhoneLess.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhoneLess.release.xcconfig"; path = "Target Support Files/Pods-PhoneLess/Pods-PhoneLess.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,12 +85,16 @@
 			children = (
 				0C9B189F2186124E009ECB0C /* roundingImage.swift */,
 				0C9B18892184B92D009ECB0C /* AppDelegate.swift */,
+				0CF2CB9A22161F4200D5DAEA /* ResetPasswordViewController.swift */,
+				0CF2CB9C22161F5500D5DAEA /* maintenanceViewController.swift */,
+				0CF2CB9E22161F6A00D5DAEA /* ConnectionViewController.swift */,
 				0C9B189D2185E47D009ECB0C /* ViewControllerLogReg.swift */,
 				0C9B188B2184B92D009ECB0C /* ViewController.swift */,
 				0C9B18A3218612C0009ECB0C /* ViewControllerSTaken.swift */,
 				0C9B18A1218612AD009ECB0C /* ViewControllerTSpent.swift */,
 				0C9B18AD21861434009ECB0C /* ViewControllerChallenges.swift */,
 				0C9B18AB21861425009ECB0C /* ViewControllerSettings.swift */,
+				0CF2CBA02217550100D5DAEA /* checkNet.swift */,
 				0C9B188D2184B92D009ECB0C /* Main.storyboard */,
 				0C9B18902184B92E009ECB0C /* Assets.xcassets */,
 				0C9B18922184B92E009ECB0C /* LaunchScreen.storyboard */,
@@ -238,13 +250,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CF2CB9B22161F4200D5DAEA /* ResetPasswordViewController.swift in Sources */,
+				0CF2CB9F22161F6A00D5DAEA /* ConnectionViewController.swift in Sources */,
 				0C9B189E2185E47D009ECB0C /* ViewControllerLogReg.swift in Sources */,
+				0CF2CB9D22161F5500D5DAEA /* maintenanceViewController.swift in Sources */,
 				0C9B188C2184B92D009ECB0C /* ViewController.swift in Sources */,
 				0C9B18A2218612AD009ECB0C /* ViewControllerTSpent.swift in Sources */,
 				0C9B18AE21861434009ECB0C /* ViewControllerChallenges.swift in Sources */,
 				0C9B188A2184B92D009ECB0C /* AppDelegate.swift in Sources */,
 				0C9B18AC21861425009ECB0C /* ViewControllerSettings.swift in Sources */,
 				0C9B18A4218612C0009ECB0C /* ViewControllerSTaken.swift in Sources */,
+				0CF2CBA12217550100D5DAEA /* checkNet.swift in Sources */,
 				0C9B18A02186124E009ECB0C /* roundingImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

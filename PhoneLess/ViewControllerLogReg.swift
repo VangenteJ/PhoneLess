@@ -21,6 +21,7 @@ class ViewControllerLogReg: UIViewController {
     @IBOutlet weak var loginRegisterBtn: UIButton!
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblReenterPassword: UILabel!
+    @IBOutlet weak var btnforgotpassword: UIButton!
     @IBOutlet weak var signInRegister: UILabel!
     var user:DatabaseReference!
     
@@ -89,6 +90,11 @@ class ViewControllerLogReg: UIViewController {
         lblReenterPassword.isHidden = true
         reEnterPasswordField.isHidden = true
         loginRegisterBtn.setTitle("Sign In", for: .normal)
+        btnforgotpassword.isHidden = false
+    }
+    
+    @IBAction func forgot_password(_ sender: Any) {
+        self.performSegue(withIdentifier: "reset_pass", sender: self)
     }
     
     //Show all sign in fields + fields that are meant to show for registering
@@ -99,6 +105,7 @@ class ViewControllerLogReg: UIViewController {
         lblReenterPassword.isHidden = false
         reEnterPasswordField.isHidden = false
         loginRegisterBtn.setTitle("Register", for: .normal)
+        btnforgotpassword.isHidden = true
     }
     
     //Dismiss virtual keyboard by touching anywhere within the screen
@@ -106,5 +113,12 @@ class ViewControllerLogReg: UIViewController {
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
         reEnterPasswordField.resignFirstResponder()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if checknet.connection(){}else{
+            let noNet = self.storyboard?.instantiateViewController(withIdentifier: "connection") as! ConnectionViewController
+            self.present(noNet , animated: true, completion: nil)
+        }
     }
 }
