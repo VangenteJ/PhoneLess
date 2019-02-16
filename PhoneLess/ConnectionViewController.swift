@@ -16,15 +16,19 @@ class ConnectionViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func try_connect(_ sender: Any) {
+        if checknet.connection(){
+            let back_to_main = self.storyboard?.instantiateViewController(withIdentifier: "viewLReg") as! ViewControllerLogReg
+            self.present(back_to_main, animated: true, completion: nil)
+        }
+            
+        else{
+            
+            let noNet = self.storyboard?.instantiateViewController(withIdentifier: "connection") as! ConnectionViewController
+            self.present(noNet , animated: true, completion: nil)
+            
+        }
     }
-    */
+    
 
 }

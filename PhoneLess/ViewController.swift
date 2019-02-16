@@ -282,5 +282,12 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if checknet.connection(){}else{
+            let noNet = self.storyboard?.instantiateViewController(withIdentifier: "connection") as! ConnectionViewController
+            self.present(noNet , animated: true, completion: nil)
+        }
+    }
 }
 

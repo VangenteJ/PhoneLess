@@ -13,6 +13,7 @@ import FirebaseStorage
 class ViewControllerSettings: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var lbl_new_quote: UITextField!
+    @IBOutlet weak var lbl_Display_new_quote: UILabel!
     
     var ref:DatabaseReference!
     var handle:DatabaseHandle?
@@ -78,5 +79,12 @@ class ViewControllerSettings: UIViewController, UIImagePickerControllerDelegate,
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if checknet.connection(){}else{
+            let noNet = self.storyboard?.instantiateViewController(withIdentifier: "connection") as! ConnectionViewController
+            self.present(noNet , animated: true, completion: nil)
+        }
     }
 }

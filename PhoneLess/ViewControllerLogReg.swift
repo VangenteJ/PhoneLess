@@ -47,8 +47,13 @@ class ViewControllerLogReg: UIViewController {
         isSigned = !isSigned
         if isSigned{
             signIN()
+            emailField.text = ""
+            passwordField.text = ""
         }else{
             register()
+            emailField.text = ""
+            passwordField.text = ""
+            reEnterPasswordField.text = ""
         }
     }
     //Log and register the user into the app
@@ -69,13 +74,15 @@ class ViewControllerLogReg: UIViewController {
                 let pas2 = reEnterPasswordField.text
                 Auth.auth().createUser(withEmail: email1, password: pass) { (user, error) in
                     if user != nil && pas2 == pass{
+                        
+                        self.ref.child("Admin").child((email?.uid)!).child("Access").setValue("No")
                         self.ref.child("Users").child((email?.uid)!).child("Loop").setValue("1")
                         self.ref.child("Users").child((email?.uid)!).child("Total Steps").setValue("0")
                         self.performSegue(withIdentifier: "logReg", sender: self)
                     }else{
                         //Change sign in/register label color to red if wrong login/Register
                         self.signInRegister.textColor = UIColor.red
-                        self.signInRegister.text = "Please enter correct details below!"
+                        self.signInRegister.text = "Email either invalid or already in use or too short password! Password must be at least 6 characters long!"
                     }
                 }
             }

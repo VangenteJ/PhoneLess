@@ -344,4 +344,11 @@ class ViewControllerSTaken: UIViewController {
         let updated_level = level_Now * level_increase
         return updated_level
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if checknet.connection(){}else{
+            let noNet = self.storyboard?.instantiateViewController(withIdentifier: "connection") as! ConnectionViewController
+            self.present(noNet , animated: true, completion: nil)
+        }
+    }
 }
