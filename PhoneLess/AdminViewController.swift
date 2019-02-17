@@ -36,6 +36,7 @@ class AdminViewController: UIViewController {
         super.viewDidLoad()
 
         ref = Database.database().reference()
+        maintenanceStatusMessage()
     }
     
     @IBAction func change_challenge(_ sender: Any) {
@@ -46,24 +47,50 @@ class AdminViewController: UIViewController {
         handlingQuotes()
     }
     
+    @IBAction func maintenanceOnOff(_ sender: Any) {
+        if lblMaintenance.text == "Maintenance mode activated!"{
+            ref.child("Maintenance").child("Status").setValue("OFF")
+        }else{
+            ref.child("Maintenance").child("Status").setValue("ON")
+        }
+    }
+    
+    func maintenanceStatusMessage(){
+        handle = ref.child("Maintenance").child("Status").observe(.value, with: { (snapshot) in
+            if snapshot.value as? String != nil{
+                let status = snapshot.value as! String
+                if status == "ON"{
+                    self.lblMaintenance.text = "Maintenance mode activated!"
+                }else{
+                    self.lblMaintenance.text = "Maintenance mode deactivated!"
+                }
+            }
+        })
+    }
+    
+    
     func handlingChallenges(){
         if txtChallenge.text != ""{
             if segChallenge_category.selectedSegmentIndex==0{
                 if segChallenges.selectedSegmentIndex==0{
                     ref.child("Challenge").child("Easy").child("C1").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==1{
                     ref.child("Challenge").child("Easy").child("C2").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==2{
                     ref.child("Challenge").child("Easy").child("C3").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==3{
                     ref.child("Challenge").child("Easy").child("C4").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }
                 
@@ -71,18 +98,22 @@ class AdminViewController: UIViewController {
                 if segChallenges.selectedSegmentIndex==0{
                     ref.child("Challenge").child("Normal").child("C1").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==1{
                     ref.child("Challenge").child("Normal").child("C2").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==2{
                     ref.child("Challenge").child("Normal").child("C3").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==3{
                     ref.child("Challenge").child("Normal").child("C4").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }
                 
@@ -90,18 +121,22 @@ class AdminViewController: UIViewController {
                 if segChallenges.selectedSegmentIndex==0{
                     ref.child("Challenge").child("Hard").child("C1").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==1{
                     ref.child("Challenge").child("Hard").child("C2").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==2{
                     ref.child("Challenge").child("Hard").child("C3").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==3{
                     ref.child("Challenge").child("Hard").child("C4").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }
                 
@@ -109,18 +144,22 @@ class AdminViewController: UIViewController {
                 if segChallenges.selectedSegmentIndex==0{
                     ref.child("Challenge").child("Legend").child("C1").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==1{
                     ref.child("Challenge").child("Legend").child("C2").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==2{
                     ref.child("Challenge").child("Legend").child("C3").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }else if segChallenges.selectedSegmentIndex==3{
                     ref.child("Challenge").child("Legend").child("C4").setValue(txtChallenge.text)
                     lblNewChallenge.text = txtChallenge.text
+                    txtChallenge.text = ""
                     
                 }
             }
@@ -136,18 +175,22 @@ class AdminViewController: UIViewController {
                 if segQuotes.selectedSegmentIndex==0{
                     ref.child("Quote").child("Easy").child("Q1").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==1{
                     ref.child("Quote").child("Easy").child("Q2").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==2{
                     ref.child("Quote").child("Easy").child("Q3").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==3{
                     ref.child("Quote").child("Easy").child("Q4").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }
                 
@@ -155,18 +198,22 @@ class AdminViewController: UIViewController {
                 if segQuotes.selectedSegmentIndex==0{
                     ref.child("Quote").child("Normal").child("Q1").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==1{
                     ref.child("Quote").child("Normal").child("Q2").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==2{
                     ref.child("Quote").child("Normal").child("Q3").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==3{
                     ref.child("Quote").child("Normal").child("Q4").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }
                 
@@ -174,18 +221,22 @@ class AdminViewController: UIViewController {
                 if segQuotes.selectedSegmentIndex==0{
                     ref.child("Quote").child("Hard").child("Q1").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==1{
                     ref.child("Quote").child("Hard").child("Q2").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==2{
                     ref.child("Quote").child("Hard").child("Q3").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==3{
                     ref.child("Quote").child("Hard").child("Q4").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }
                 
@@ -193,18 +244,22 @@ class AdminViewController: UIViewController {
                 if segQuotes.selectedSegmentIndex==0{
                     ref.child("Quote").child("Legend").child("Q1").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==1{
                     ref.child("Quote").child("Legend").child("Q2").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==2{
                     ref.child("Quote").child("Legend").child("Q3").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }else if segQuotes.selectedSegmentIndex==3{
                     ref.child("Quote").child("Legend").child("Q4").setValue(txtQuote.text)
                     lblNewQuote.text = txtQuote.text
+                    txtQuote.text = ""
                     
                 }
                 
